@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medishop/screens/catalog_detail.dart';
 import 'package:medishop/widgets/bottom_navigation.dart';
 import 'package:medishop/widgets/itemslist.dart';
 import 'package:medishop/widgets/search_bar.dart';
@@ -13,6 +14,17 @@ class ProductCatalogue extends StatefulWidget {
 class _ProductCatalogueState extends State<ProductCatalogue> {
   final TextEditingController _searchController = TextEditingController();
 
+  void _handleItemTap(Item item) {
+    // Handle item tap
+    print('Item tapped: ${item.title}');
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CatalogDetailScreen(title: item.title, selectedFilters: const {}, filters: const [],),
+      ),
+    );
+  }
+
   final List<Item> items = [
     Item(
       imagePath: 'assets/images/drug1.png',
@@ -20,9 +32,8 @@ class _ProductCatalogueState extends State<ProductCatalogue> {
     ),
     Item(
       imagePath: 'assets/images/drug2.png',
-      title: 'Item 2',
+      title: 'Pain Relievers',
     ),
-    
     // Add more items as needed
   ];
 
@@ -40,7 +51,9 @@ class _ProductCatalogueState extends State<ProductCatalogue> {
               const Text(
                 "Product catalog",
                 style: TextStyle(
-                    fontSize: 24, color: Colors.black, fontWeight: FontWeight.bold),
+                    fontSize: 24,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
               Search_Bar(
@@ -52,15 +65,17 @@ class _ProductCatalogueState extends State<ProductCatalogue> {
               const SizedBox(height: 0),
               Container(
                 margin: const EdgeInsets.only(top: 0),
-                padding: const EdgeInsets.only(top: 0), // Adjust top padding as needed
+                padding: const EdgeInsets.only(top: 0),
                 height: 600,
-                child: ItemListWidget(items: items),
+                child: ItemListWidget(
+                  items: items,
+                  onItemTap: _handleItemTap,
+                ),
               ),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: const BottomNavigation(),
     );
   }
 }

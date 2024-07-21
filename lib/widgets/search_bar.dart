@@ -8,12 +8,14 @@ class Search_Bar extends StatefulWidget {
   final TextEditingController controller;
   final Function(String)? onChanged;
   final String hintText;
+  final FocusNode? focusNode;
 
   const Search_Bar({
     super.key,
     required this.controller,
     this.onChanged,
     this.hintText = 'Search...',
+    this.focusNode,
   });
 
   @override
@@ -23,24 +25,19 @@ class Search_Bar extends StatefulWidget {
 class _Search_BarState extends State<Search_Bar> {
   bool _isActive = false;
 
-  void _setActive(bool active) {
-    setState(() {
-      _isActive = active;
-    });
-
-    if (active) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => RecentSearchesScreen(
-            onSearchSelected: (query) {
-              widget.controller.text = query;
-              widget.onChanged?.call(query);
-            },
-          ),
+  void _navigateToRecentSearches() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RecentSearchesScreen(
+          onSearchSelected: (query) {
+            widget.controller.text = query;
+            widget.onChanged?.call(query);
+            Navigator.pop(context);
+          },
         ),
-      );
-    }
+      ),
+    );
   }
 
   @override
@@ -52,7 +49,7 @@ class _Search_BarState extends State<Search_Bar> {
         borderRadius: BorderRadius.circular(8.0),
         border: _isActive
             ? Border.all(
-                color: const Color.fromRGBO(71, 53, 255, 1),
+                color: const Color.fromRGBO(53, 71, 255, 1),
                 width: 2.0,
               )
             : null,
@@ -64,16 +61,24 @@ class _Search_BarState extends State<Search_Bar> {
             child: Icon(Icons.search, color: Colors.grey),
           ),
           Expanded(
-            child: Focus(
-              onFocusChange: (hasFocus) {
-                _setActive(hasFocus);
-              },
-              child: TextField(
-                controller: widget.controller,
-                onChanged: widget.onChanged,
-                decoration: InputDecoration(
-                  hintText: widget.hintText,
-                  border: InputBorder.none,
+            child: GestureDetector(
+              onTap: _navigateToRecentSearches,
+              child: AbsorbPointer(
+                child: Focus(
+                  onFocusChange: (hasFocus) {
+                    setState(() {
+                      _isActive = hasFocus;
+                    });
+                  },
+                  child: TextField(
+                    controller: widget.controller,
+                    onChanged: widget.onChanged,
+                    focusNode: widget.focusNode,
+                    decoration: InputDecoration(
+                      hintText: widget.hintText,
+                      border: InputBorder.none,
+                    ),
+                  ),
                 ),
               ),
             ),

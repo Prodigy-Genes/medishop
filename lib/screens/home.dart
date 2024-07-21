@@ -77,38 +77,47 @@ class _HomeState extends State<Home> {
                 ],
               ),
               const SizedBox(height: 5),
-              const SingleChildScrollView(
+              SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     // Set fixed width for each card
-                    SizedBox(
-                      width: 200,
-                      child: PopularItemCard(
-                        imagePath: "assets/images/drug1.png",
-                        title: "itemName",
-                        description: "itemDescription",
-                        price: 7.00,
+                    GestureDetector(
+                      child: const SizedBox(
+                        width: 200,
+                        child: PopularItemCard(
+                          imagePath: "assets/images/drug1.png",
+                          title: "itemName",
+                          description: "itemDescription",
+                          price: 7.00,
+                        ),
                       ),
+                      onTap: () => print("Card Pressed"),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
-                    SizedBox(
-                      width: 200,
-                      child: PopularItemCard(
-                        imagePath: "assets/images/drug1.png",
-                        title: "itemName",
-                        description: "itemDescription",
-                        price: 7.00,
+                    GestureDetector(
+                      child: const SizedBox(
+                        width: 200,
+                        child: PopularItemCard(
+                          imagePath: "assets/images/drug1.png",
+                          title: "itemName",
+                          description: "itemDescription",
+                          price: 7.00,
+                        ),
                       ),
+                      onTap: () => print("Card Pressed"),
                     ),
+
                     // Add more items as needed
                   ],
                 ),
               ),
-              const SizedBox(height: 5,),
+              const SizedBox(
+                height: 5,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -130,33 +139,40 @@ class _HomeState extends State<Home> {
                 ],
               ),
               const SizedBox(height: 5),
-              const SingleChildScrollView(
+              SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     // Set fixed width for each card
-                    SizedBox(
-                      width: 200,
-                      child: RecentlyViewed(
-                        imagePath: "assets/images/drug2.png",
-                        title: "itemName",
-                        description: "itemDescription",
-                        price: 7.00,
+                    GestureDetector(
+                      onTap: () => print("recently viewed"),
+                      child: const SizedBox(
+                        width: 200,
+                        child: RecentlyViewed(
+                          imagePath: "assets/images/drug2.png",
+                          title: "itemName",
+                          description: "itemDescription",
+                          price: 7.00,
+                        ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
-                    SizedBox(
-                      width: 200,
-                      child: RecentlyViewed(
-                        imagePath: "assets/images/drug2.png",
-                        title: "itemName",
-                        description: "itemDescription",
-                        price: 7.00,
+                    GestureDetector(
+                      onTap: () => print("recently viewed"),
+                      child: const SizedBox(
+                        width: 200,
+                        child: RecentlyViewed(
+                          imagePath: "assets/images/drug2.png",
+                          title: "itemName",
+                          description: "itemDescription",
+                          price: 7.00,
+                        ),
                       ),
                     ),
+
                     // Add more items as needed
                   ],
                 ),
@@ -165,10 +181,6 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomNavigation(), 
     );
   }
 }
-
-// BottomNavigation widget as previously defined
-

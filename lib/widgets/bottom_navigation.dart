@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
 import 'package:medishop/screens/home.dart';
 import 'package:medishop/screens/product_catalogue.dart';
@@ -8,11 +6,13 @@ class BottomNavigation extends StatefulWidget {
   const BottomNavigation({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _BottomNavigationState createState() => _BottomNavigationState();
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-  int _currentIndex =0;
+  int _currentIndex = 0;
+  final PageController _pageController = PageController();
 
   final List<Widget> _screens = [
     const Home(),
@@ -25,54 +25,89 @@ class _BottomNavigationState extends State<BottomNavigation> {
     setState(() {
       _currentIndex = index;
     });
-    // Navigate to the selected screen
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => _screens[index]),
-    );
+    _pageController.jumpToPage(index);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 90,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.withOpacity(0.2)),
+    return Scaffold(
+      body: PageView(
+        controller: _pageController,
+        children: _screens,
+        onPageChanged: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
       ),
-      child: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        backgroundColor: Colors.white,
-        onTap: _onTap,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: const Color.fromRGBO(71, 53, 255, 1),
-        unselectedItemColor: Colors.grey,
-        selectedFontSize: 14,
-        unselectedFontSize: 12,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              color: Colors.grey.withOpacity(0.4),
+              width: 1.0,
+            ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: 'Catalog',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Cart',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'My Profile',
-          ),
-        ],
+        ),
+        height: 80, // Adjust the height as needed
+        child: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          backgroundColor: Colors.white,
+          onTap: _onTap,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: const Color.fromRGBO(71, 53, 255, 1),
+          unselectedItemColor: Colors.grey,
+          selectedFontSize: 14,
+          unselectedFontSize: 12,
+          items: [
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                _currentIndex == 0
+                    ? 'assets/icons/home_selected.png'
+                    : 'assets/icons/home_unselected.png',
+                width: 20,
+                height: 20,
+              ),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                _currentIndex == 1
+                    ? 'assets/icons/catalog_selected.png'
+                    : 'assets/icons/catalog_unselected.png',
+                width: 20,
+                height: 20,
+              ),
+              label: 'Catalog',
+            ),
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                _currentIndex == 2
+                    ? 'assets/icons/cart_selected.png'
+                    : 'assets/icons/cart_unselected.png',
+                width: 20,
+                height: 20,
+              ),
+              label: 'Cart',
+            ),
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                _currentIndex == 3
+                    ? 'assets/icons/profile_selected.png'
+                    : 'assets/icons/profile_unselected.png',
+                width: 20,
+                height: 20,
+              ),
+              label: 'My Profile',
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
 // Placeholder screens for demonstration purposes
-
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});

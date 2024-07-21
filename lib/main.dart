@@ -1,10 +1,12 @@
 // ignore_for_file: unused_import
 
 import 'package:flutter/material.dart';
+import 'package:medishop/screens/fikter_and_sort.dart';
 import 'package:medishop/screens/home.dart';
 import 'package:medishop/screens/login_signup.dart';
 import 'package:medishop/screens/product_catalogue.dart';
 import 'package:medishop/screens/registration.dart';
+import 'package:medishop/widgets/bottom_navigation.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const LoginSignup(),
+      home: const FilterAndSortScreen(),
     );
   }
 }
