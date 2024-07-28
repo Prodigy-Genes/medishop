@@ -16,7 +16,13 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   final List<Widget> _screens = [
     const Home(),
-    const ProductCatalogue(),
+    Navigator(
+      onGenerateRoute: (settings) {
+        return MaterialPageRoute(
+          builder: (context) => const ProductCatalogue(),
+        );
+      },
+    ),
     const CartScreen(),
     const ProfileScreen(),
   ];
@@ -41,6 +47,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
         },
       ),
       bottomNavigationBar: Container(
+        height: 80,
         decoration: BoxDecoration(
           border: Border(
             top: BorderSide(
@@ -49,16 +56,13 @@ class _BottomNavigationState extends State<BottomNavigation> {
             ),
           ),
         ),
-        height: 80, // Adjust the height as needed
         child: BottomNavigationBar(
-          currentIndex: _currentIndex,
           backgroundColor: Colors.white,
+          currentIndex: _currentIndex,
           onTap: _onTap,
           type: BottomNavigationBarType.fixed,
           selectedItemColor: const Color.fromRGBO(71, 53, 255, 1),
           unselectedItemColor: Colors.grey,
-          selectedFontSize: 14,
-          unselectedFontSize: 12,
           items: [
             BottomNavigationBarItem(
               icon: Image.asset(

@@ -1,11 +1,5 @@
-// ignore_for_file: unused_import
-
 import 'package:flutter/material.dart';
-import 'package:medishop/screens/fikter_and_sort.dart';
-import 'package:medishop/screens/home.dart';
 import 'package:medishop/screens/login_signup.dart';
-import 'package:medishop/screens/product_catalogue.dart';
-import 'package:medishop/screens/registration.dart';
 import 'package:medishop/widgets/bottom_navigation.dart';
 
 void main() {
@@ -15,18 +9,39 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const FilterAndSortScreen(),
+      home: const MainScreen(),
     );
   }
 }
 
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  bool _isLoggedIn = false;
+
+  void _handleLoginSuccess() {
+    setState(() {
+      _isLoggedIn = true;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _isLoggedIn 
+      ? const BottomNavigation() 
+      : LoginSignup(onLoginSuccess: _handleLoginSuccess);
+  }
+}

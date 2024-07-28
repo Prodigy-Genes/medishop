@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:medishop/screens/home.dart';
+import 'package:medishop/widgets/bottom_navigation.dart';
 import 'package:medishop/widgets/continue_button.dart';
 
 class Registration extends StatefulWidget {
@@ -113,7 +114,8 @@ class _RegistrationState extends State<Registration> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const Home()),
+                                builder: (context) => const BottomNavigation(),
+                              ),
                             );
                           }
 

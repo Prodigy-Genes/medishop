@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medishop/screens/fikter_and_sort.dart';
 import 'package:medishop/widgets/catalog_details_card.dart';
 import 'package:medishop/widgets/search_bar.dart';
 
@@ -35,7 +36,8 @@ class CatalogDetailScreen extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
               Search_Bar(
@@ -43,7 +45,10 @@ class CatalogDetailScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               GestureDetector(
-                onTap: () => print("Filter and sort"),
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const FilterAndSortScreen())),
                 child: Row(
                   children: [
                     Image.asset(
@@ -65,6 +70,7 @@ class CatalogDetailScreen extends StatelessWidget {
                 runSpacing: 4.0,
                 children: filters
                     .map((filter) => Chip(
+                          backgroundColor: Colors.white,
                           label: Text(filter),
                         ))
                     .toList(),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:medishop/screens/catalog_detail.dart';
-import 'package:medishop/widgets/bottom_navigation.dart';
 import 'package:medishop/widgets/itemslist.dart';
 import 'package:medishop/widgets/search_bar.dart';
 
@@ -15,12 +14,15 @@ class _ProductCatalogueState extends State<ProductCatalogue> {
   final TextEditingController _searchController = TextEditingController();
 
   void _handleItemTap(Item item) {
-    // Handle item tap
-    print('Item tapped: ${item.title}');
+    // Navigate using the nested navigator
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CatalogDetailScreen(title: item.title, selectedFilters: const {}, filters: const [],),
+        builder: (context) => CatalogDetailScreen(
+          title: item.title,
+          selectedFilters: const {},
+          filters: const [],
+        ),
       ),
     );
   }
@@ -62,15 +64,10 @@ class _ProductCatalogueState extends State<ProductCatalogue> {
                   print('Search query: $query');
                 },
               ),
-              const SizedBox(height: 0),
-              Container(
-                margin: const EdgeInsets.only(top: 0),
-                padding: const EdgeInsets.only(top: 0),
-                height: 600,
-                child: ItemListWidget(
-                  items: items,
-                  onItemTap: _handleItemTap,
-                ),
+              const SizedBox(height: 8),
+              ItemListWidget(
+                items: items,
+                onItemTap: _handleItemTap,
               ),
             ],
           ),

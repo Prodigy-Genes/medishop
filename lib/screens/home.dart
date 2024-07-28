@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 25),
+              const SizedBox(height: 45),
               LocationDisplay(
                 onLocationPressed: () {
                   print("Location has been pressed");

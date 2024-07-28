@@ -5,7 +5,9 @@ import 'package:medishop/widgets/continue_button.dart';
 import 'package:medishop/widgets/google_button.dart';
 
 class LoginSignup extends StatefulWidget {
-  const LoginSignup({super.key});
+  final VoidCallback onLoginSuccess;
+
+  const LoginSignup({super.key, required this.onLoginSuccess});
 
   @override
   State<LoginSignup> createState() => _LoginSignupState();
@@ -20,6 +22,17 @@ class _LoginSignupState extends State<LoginSignup> {
     setState(() {
       _isPhoneNumberValid = value.length == 10;
     });
+  }
+
+  void _handleContinue() {
+    if (_isPhoneNumberValid) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => CodeVerification(
+                    phoneNumber: '$_countryCode ${_phoneController.text}',
+                  )));
+    }
   }
 
   @override
@@ -103,16 +116,7 @@ class _LoginSignupState extends State<LoginSignup> {
               ContinueButton(
                 isEnabled: _isPhoneNumberValid,
                 showWhenCodeEntered: false,
-                onPressed: () {
-                  // Handle button press
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CodeVerification(
-                            phoneNumber:
-                                '$_countryCode ${_phoneController.text}')),
-                  );
-                },
+                onPressed: _handleContinue,
               ),
               const SizedBox(height: 24.0),
               const Row(
@@ -151,6 +155,7 @@ class _LoginSignupState extends State<LoginSignup> {
               TextButton(
                 onPressed: () {
                   // Handle 'Continue as guest' button press
+                  _handleContinue();
                 },
                 style: TextButton.styleFrom(
                   fixedSize: const Size(double.infinity, 48),

@@ -8,10 +8,8 @@ class ItemListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        final item = items[index];
+    return Column(
+      children: items.map((item) {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 5.0),
           child: GestureDetector(
@@ -51,7 +49,7 @@ class ItemListWidget extends StatelessWidget {
             ),
           ),
         );
-      },
+      }).toList(),
     );
   }
 }

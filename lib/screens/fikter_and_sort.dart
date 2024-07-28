@@ -75,7 +75,8 @@ class _FilterAndSortScreenState extends State<FilterAndSortScreen> {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => CatalogDetailScreen(
               title: 'Catalog Details',
-              filters: selectedFilters, selectedFilters: const {},
+              filters: selectedFilters, 
+              selectedFilters: const {},
             )));
   }
 
@@ -145,14 +146,24 @@ class _FilterAndSortScreenState extends State<FilterAndSortScreen> {
             const SizedBox(height: 16.0),
             const Text('Filter by', style: TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8.0),
-            Wrap(
+             Wrap(
               spacing: 8.0,
               runSpacing: 4.0,
-              children: filterBy
-                  .map((filter) => Chip(
-                        label: Text(filter),
-                      ))
-                  .toList(),
+              
+              children: [
+                ...filterBy.map((filter) => Chip(
+                  backgroundColor: Colors.white,
+                      label: Text(filter),
+                    )),
+                ...dosageForms.map((dosageForm) => Chip(
+                  backgroundColor: Colors.white,
+                      label: Text(dosageForm),
+                    )),
+                ...quantityPerPackage.map((quantity) => Chip(
+                  backgroundColor: Colors.white,
+                      label: Text(quantity),
+                    )),
+              ],
             ),
             const SizedBox(height: 16.0),
             ExpansionTile(
